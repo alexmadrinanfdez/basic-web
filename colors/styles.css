@@ -33,3 +33,22 @@ h1 {
 .magenta {
     background-color: rgb(255, 0, 255);
 }
+/* Tertiary colors are combinations of a primary with a nearby secondary color */
+.orange {
+    background-color: rgb(255, 127, 0);
+}
+.springgreen {
+    background-color: rgb(0, 255, 127);
+}
+.violet {
+    background-color: rgb(127, 0, 255);
+}
+.chartreuse {
+    background-color: rgb(127, 255, 0);
+}
+.azure {
+    background-color: rgb(0, 127, 255);
+}
+.rose {
+    background-color: rgb(255, 0, 127);
+}
