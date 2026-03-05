@@ -16,11 +16,12 @@ html {
   border-radius: 10px;
 }
 
-#keys {
+.keys {
   background-color: #040404;
   width: 949px;
   height: 180px;
   padding-left: 2px;
+  overflow: hidden;
 }
 
 .key {
@@ -41,4 +42,24 @@ html {
   width: 32px;
   height: 100px;
   border-radius: 0 0 3px 3px;
+}
+
+@media (max-width: 768px) {
+  #piano {
+    width: 358px;
+  }
+
+  .keys {
+    width: 318px;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 769px) {
+  #piano {
+    width: 675px;
+  }
+
+  .keys {
+    width: 633px;
+  }
 }
