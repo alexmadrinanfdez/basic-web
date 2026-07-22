@@ -32,4 +32,28 @@ class Ball {
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
   }
+
+  // method to move the ball
+  update() {
+    // check for collision with the walls
+    if (this.x + this.size >= width) {
+      this.velX = -this.velX;
+    }
+
+    if (this.x - this.size <= 0) {
+      this.velX = -this.velX;
+    }
+
+    if (this.y + this.size >= height) {
+      this.velY = -this.velY;
+    }
+
+    if (this.y - this.size <= 0) {
+      this.velY = -this.velY;
+    }
+    
+    // update position
+    this.x += this.velX;
+    this.y += this.velY;
+  }
 }
