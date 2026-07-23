@@ -8,10 +8,6 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomRGB() {
-  return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-}
-
 
 const { Engine, Bodies, Body, Composite } = Matter;
 
@@ -38,8 +34,7 @@ while (balls.length < 25) {
     {
       restitution: 1,
       friction: 0,
-      frictionAir: 0,
-      render: { fillStyle: randomRGB() }
+      frictionAir: 0
     }
   );
   Body.setVelocity(ball, { x: random(-10, 10), y: random(-10, 10) });
@@ -51,7 +46,7 @@ while (balls.length < 25) {
 
 (function run() {
   // cover last frame with a semi-transparent color to create a fading trail effect
-  ctx.fillStyle = "rgb(0 0 0 / 35%)";
+  ctx.fillStyle = "rgb(34 34 34 / 35%)";
   ctx.fillRect(0, 0, width, height);
 
   for (const ball of balls) {
