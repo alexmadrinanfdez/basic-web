@@ -12,76 +12,56 @@ function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
-class Ball {
-  constructor(x, y, velX, velY, color, size) {
-    this.x = x;
-    this.y = y;
-    this.velX = velX;
-    this.velY = velY;
-    this.color = color;
-    this.size = size;
-  }
-  
-  draw() {
-    ctx.beginPath();
-    ctx.fillStyle = this.color;
-    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-    ctx.fill();
-  }
 
-  update() {
-    if (this.x + this.size >= width || this.x - this.size <= 0) {
-      this.velX = -this.velX;
-    }
+const { Engine, Bodies, Body, Composite } = Matter;
 
-    if (this.y + this.size >= height || this.y - this.size <= 0) {
-      this.velY = -this.velY;
-    }
-    
-    this.x += this.velX;
-    this.y += this.velY;
-  }
+const engine = Engine.create();
+engine.world.gravity.y = 0;
 
-  collisionDetect() {
-    for (const ball of balls) {
-      if (this !== ball) {
-        const dx = this.x - ball.x;
-        const dy = this.y - ball.y;
+const walls = [
+  Bodies.rectangle(width / 2, 0, width, 1, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, 1, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, 1, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, 1, height, { isStatic: true }),
+]
 
-        if (Math.hypot(dx, dy) < this.size + ball.size) {
-          this.color = ball.color = randomRGB();
-        }
-      }
-    }
-  }
-}
+Composite.add(engine.world, walls);
 
 const balls = [];
 while (balls.length < 25) {
   const size = random(10, 20);
-  const ball = new Ball(
+  const ball = Bodies.circle(
     // ball position drawn at least one ball width from the edge of the canvas
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(-7, 7),
-    random(-7, 7),
-    randomRGB(),
-    size
+    size,
+    {
+      restitution: 1,
+      friction: 0,
+      frictionAir: 0,
+      render: { fillStyle: randomRGB() }
+    }
   );
+  Body.setVelocity(ball, { x: random(-10, 10), y: random(-10, 10) });
+  Body.setInertia(ball, Infinity);
 
+  Composite.add(engine.world, ball);
   balls.push(ball);
 }
 
-(function loop() {
+(function run() {
   // cover last frame with a semi-transparent color to create a fading trail effect
   ctx.fillStyle = "rgb(0 0 0 / 35%)";
   ctx.fillRect(0, 0, width, height);
 
   for (const ball of balls) {
-    ball.draw();
-    ball.update();
-    ball.collisionDetect();
+    const { x, y } = ball.position;
+    ctx.beginPath();
+    ctx.fillStyle = ball.render.fillStyle;
+    ctx.arc(x, y, ball.circleRadius, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  requestAnimationFrame(loop);
+  Engine.update(engine);
+  window.requestAnimationFrame(run);
 })();
