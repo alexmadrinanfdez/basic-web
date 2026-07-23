@@ -1,3 +1,10 @@
+const WALL_THICKNESS = 1;
+const NUM_BALLS = 25;
+const SPEED_LIMIT = 10;
+const MAX_SIZE = 25;
+const MIN_SIZE = 10;
+
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -15,17 +22,17 @@ const engine = Engine.create();
 engine.world.gravity.y = 0;
 
 const walls = [
-  Bodies.rectangle(width / 2, 0, width, 1, { isStatic: true }),
-  Bodies.rectangle(width / 2, height, width, 1, { isStatic: true }),
-  Bodies.rectangle(0, height / 2, 1, height, { isStatic: true }),
-  Bodies.rectangle(width, height / 2, 1, height, { isStatic: true }),
+  Bodies.rectangle(width / 2, 0, width, WALL_THICKNESS, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, WALL_THICKNESS, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, WALL_THICKNESS, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, WALL_THICKNESS, height, { isStatic: true }),
 ]
 
 Composite.add(engine.world, walls);
 
 const balls = [];
-while (balls.length < 25) {
-  const size = random(10, 20);
+for (let i = 0; i < NUM_BALLS; i++) {
+  const size = random(MIN_SIZE, MAX_SIZE);
   const ball = Bodies.circle(
     // ball position drawn at least one ball width from the edge of the canvas
     random(0 + size, width - size),
@@ -37,7 +44,7 @@ while (balls.length < 25) {
       frictionAir: 0
     }
   );
-  Body.setVelocity(ball, { x: random(-10, 10), y: random(-10, 10) });
+  Body.setVelocity(ball, { x: random(-SPEED_LIMIT, SPEED_LIMIT), y: random(-SPEED_LIMIT, SPEED_LIMIT) });
   Body.setInertia(ball, Infinity);
 
   Composite.add(engine.world, ball);
