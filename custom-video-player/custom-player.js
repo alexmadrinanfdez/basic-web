@@ -14,3 +14,16 @@ const timerBar = document.querySelector(".timer div");
 // users can still use the video with the native controls
 media.removeAttribute("controls");
 controls.style.visibility = "visible";
+
+
+play.addEventListener("click", playPauseMedia);
+
+function playPauseMedia() {
+  if (media.paused) {
+    play.setAttribute("data-icon", "u");
+    media.play();
+  } else {
+    play.setAttribute("data-icon", "P");
+    media.pause();
+  }
+}
