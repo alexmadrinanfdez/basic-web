@@ -20,6 +20,7 @@ stop.addEventListener("click", stopMedia);
 media.addEventListener("ended", stopMedia);
 rwd.addEventListener("click", mediaBackward);
 fwd.addEventListener("click", mediaForward);
+media.addEventListener("timeupdate", setTime);
 
 function playPauseMedia() {
   if (media.paused) {
@@ -88,4 +89,19 @@ function windForward() {
   } else {
     media.currentTime += 3;
   }
+}
+
+function setTime() {
+  const minutes = Math.floor(media.currentTime / 60);
+  const seconds = Math.floor(media.currentTime - minutes * 60);
+
+  const minuteValue = minutes.toString().padStart(2, "0");
+  const secondValue = seconds.toString().padStart(2, "0");
+
+  const mediaTime = `${minuteValue}:${secondValue}`;
+  timer.textContent = mediaTime;
+
+  const barLength =
+    timerWrapper.clientWidth * (media.currentTime / media.duration);
+  timerBar.style.width = `${barLength}px`;
 }
