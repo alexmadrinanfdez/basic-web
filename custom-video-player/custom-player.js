@@ -10,7 +10,7 @@ const timerWrapper = document.querySelector(".timer");
 const timer = document.querySelector(".timer span");
 const timerBar = document.querySelector(".timer div");
 
-// do it programmatically so that if the JavaScript doesn't load, 
+// switch controls programmatically so that if the JavaScript doesn't load, 
 // users can still use the video with the native controls
 media.removeAttribute("controls");
 controls.style.visibility = "visible";
@@ -23,10 +23,8 @@ fwd.addEventListener("click", mediaForward);
 media.addEventListener("timeupdate", setTime);
 
 function playPauseMedia() {
-  rwd.classList.remove("active");
-  fwd.classList.remove("active");
-  clearInterval(intervalRwd);
-  clearInterval(intervalFwd);
+  stopBackward();
+  stopForward();
 
   if (media.paused) {
     play.setAttribute("data-icon", "u");
@@ -38,10 +36,8 @@ function playPauseMedia() {
 }
 
 function stopMedia() {
-  rwd.classList.remove("active");
-  fwd.classList.remove("active");
-  clearInterval(intervalRwd);
-  clearInterval(intervalFwd);
+  stopBackward();
+  stopForward();
 
   media.pause();
   media.currentTime = 0;
@@ -52,8 +48,7 @@ let intervalFwd;
 let intervalRwd;
 
 function mediaBackward() {
-  clearInterval(intervalFwd);
-  fwd.classList.remove("active");
+  stopForward();
 
   if (rwd.classList.contains("active")) {
     rwd.classList.remove("active");
@@ -67,8 +62,7 @@ function mediaBackward() {
 }
 
 function mediaForward() {
-  clearInterval(intervalRwd);
-  rwd.classList.remove("active");
+  stopBackward();
 
   if (fwd.classList.contains("active")) {
     fwd.classList.remove("active");
@@ -97,15 +91,21 @@ function windForward() {
   }
 }
 
+function stopBackward() {
+  clearInterval(intervalRwd);
+  rwd.classList.remove("active");
+}
+
+function stopForward() {
+  clearInterval(intervalFwd);
+  fwd.classList.remove("active");
+}
+
 function setTime() {
-  const minutes = Math.floor(media.currentTime / 60);
-  const seconds = Math.floor(media.currentTime - minutes * 60);
+  const minutes = Math.floor(media.currentTime / 60).toString();
+  const seconds = Math.floor(media.currentTime - minutes * 60).toString();
 
-  const minuteValue = minutes.toString().padStart(2, "0");
-  const secondValue = seconds.toString().padStart(2, "0");
-
-  const mediaTime = `${minuteValue}:${secondValue}`;
-  timer.textContent = mediaTime;
+  timer.textContent = `${minutes.padStart(2, "0")}:${seconds.padStart(2, "0")}`;
 
   const barLength =
     timerWrapper.clientWidth * (media.currentTime / media.duration);
