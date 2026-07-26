@@ -23,6 +23,11 @@ fwd.addEventListener("click", mediaForward);
 media.addEventListener("timeupdate", setTime);
 
 function playPauseMedia() {
+  rwd.classList.remove("active");
+  fwd.classList.remove("active");
+  clearInterval(intervalRwd);
+  clearInterval(intervalFwd);
+
   if (media.paused) {
     play.setAttribute("data-icon", "u");
     media.play();
@@ -33,6 +38,11 @@ function playPauseMedia() {
 }
 
 function stopMedia() {
+  rwd.classList.remove("active");
+  fwd.classList.remove("active");
+  clearInterval(intervalRwd);
+  clearInterval(intervalFwd);
+
   media.pause();
   media.currentTime = 0;
   play.setAttribute("data-icon", "P");
@@ -73,8 +83,6 @@ function mediaForward() {
 
 function windBackward() {
   if (media.currentTime <= 3) {
-    rwd.classList.remove("active");
-    clearInterval(intervalRwd);
     stopMedia();
   } else {
     media.currentTime -= 3;
@@ -83,8 +91,6 @@ function windBackward() {
 
 function windForward() {
   if (media.currentTime >= media.duration - 3) {
-    fwd.classList.remove("active");
-    clearInterval(intervalFwd);
     stopMedia();
   } else {
     media.currentTime += 3;
