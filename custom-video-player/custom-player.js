@@ -21,6 +21,7 @@ media.addEventListener("ended", stopMedia);
 rwd.addEventListener("click", mediaBackward);
 fwd.addEventListener("click", mediaForward);
 media.addEventListener("timeupdate", setTime);
+timerWrapper.addEventListener("click", seekBar);
 
 function playPauseMedia() {
   stopBackward();
@@ -110,4 +111,10 @@ function setTime() {
   const barLength =
     timerWrapper.clientWidth * (media.currentTime / media.duration);
   timerBar.style.width = `${barLength}px`;
+}
+
+function seekBar(e) {
+  const timerBounds = timerWrapper.getBoundingClientRect();
+  const seekTime = (e.x - timerBounds.x) / timerBounds.width;
+  media.currentTime = seekTime * media.duration;
 }
