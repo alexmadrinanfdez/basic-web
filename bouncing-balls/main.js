@@ -7,12 +7,18 @@ const MIN_SIZE = 10;
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const animationButton = document.querySelector("#animation");
+const animationIcon = animationButton.querySelector("#animation span");
 
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
 
-function random(min, max) {
+function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function degToRad(degrees) {
+  return (degrees * Math.PI) / 180;
 }
 
 
@@ -32,11 +38,11 @@ Composite.add(engine.world, walls);
 
 const balls = [];
 for (let i = 0; i < NUM_BALLS; i++) {
-  const size = random(MIN_SIZE, MAX_SIZE);
+  const size = rand(MIN_SIZE, MAX_SIZE);
   const ball = Bodies.circle(
     // ball position drawn at least one ball width from the edge of the canvas
-    random(0 + size, width - size),
-    random(0 + size, height - size),
+    rand(0 + size, width - size),
+    rand(0 + size, height - size),
     size,
     {
       restitution: 1,
@@ -44,14 +50,41 @@ for (let i = 0; i < NUM_BALLS; i++) {
       frictionAir: 0
     }
   );
-  Body.setVelocity(ball, { x: random(-SPEED_LIMIT, SPEED_LIMIT), y: random(-SPEED_LIMIT, SPEED_LIMIT) });
+  Body.setVelocity(ball, {
+    x: rand(-SPEED_LIMIT, SPEED_LIMIT),
+    y: rand(-SPEED_LIMIT, SPEED_LIMIT)
+  });
   Body.setInertia(ball, Infinity);
 
   Composite.add(engine.world, ball);
   balls.push(ball);
 }
 
-(function run() {
+
+let isRunning = true;
+let animationFrameId = null;
+
+function updateButtonState() {
+  animationIcon.textContent = isRunning ? "pause" : "play_arrow";
+  animationButton.setAttribute("aria-label", `${isRunning ? "Pause" : "Play"} animation`);
+}
+
+animationButton.addEventListener("click", () => {
+  isRunning = !isRunning;
+  updateButtonState();
+
+  if (isRunning) {
+    animationFrameId = window.requestAnimationFrame(run);
+  } else {
+    animationFrameId = window.cancelAnimationFrame(animationFrameId);
+  }
+});
+
+function run() {
+  if (!isRunning) {
+    return;
+  }
+
   // cover last frame with a semi-transparent color to create a fading trail effect
   ctx.fillStyle = "rgb(34 34 34 / 35%)";
   ctx.fillRect(0, 0, width, height);
@@ -60,10 +93,13 @@ for (let i = 0; i < NUM_BALLS; i++) {
     const { x, y } = ball.position;
     ctx.beginPath();
     ctx.fillStyle = ball.render.fillStyle;
-    ctx.arc(x, y, ball.circleRadius, 0, Math.PI * 2);
+    ctx.arc(x, y, ball.circleRadius, degToRad(0), degToRad(360));
     ctx.fill();
   }
 
   Engine.update(engine);
-  window.requestAnimationFrame(run);
-})();
+  animationFrameId = window.requestAnimationFrame(run);
+}
+
+updateButtonState();
+animationFrameId = window.requestAnimationFrame(run);
