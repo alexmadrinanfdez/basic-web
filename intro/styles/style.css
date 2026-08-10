@@ -5,9 +5,10 @@ html {
 body {
     font-family: "Abel", serif;
     width: 600px;
+    min-height: 100vh;
     margin: 0 auto;
     background-color: #fff;
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 20px;
     border: 5px solid black;
 }
   
@@ -31,4 +32,6 @@ p {
 img {
     display: block;
     margin: 0 auto;
+    cursor: zoom-in;
+    width: 75%;
 }  
