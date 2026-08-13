@@ -1,5 +1,22 @@
 h1 {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
     text-align: center;
+    font-size: 2.5rem;
+}
+
+span.red-text {
+    color: hsl(0, 100%, 50%);
+}
+
+span.green-text {
+    color: hsl(120, 100%, 50%);
+}
+
+span.blue-text {
+    color: hsl(240, 100%, 50%);
 }
 
 #container {
