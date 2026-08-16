@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>SVG Clock</title>
+  <meta charset="UTF-8">
+  <style type="text/css">
+    body,
+    html {
+      margin: 0px;
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+      background-color: #eee;
+    }
+
+    .half {
+      background-color: #db4e36;
+      color: #db4e36;
+      font-family: sans-serif;
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      padding: 0.5em;
+    }
+
+    #txt {
+      padding-top: 0.2em;
+      background-color: #FFF;
+    }
+
+    #vector {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <script type="text/javascript" src="http://zeptojs.com/zepto.min.js"></script>
+  <script type="text/javascript">
+    function x2(n, i, x1, r) { return x1 + r * Math.sin(2 * Math.PI * n / i); };
+    function y2(n, i, y1, r) { return y1 - r * Math.cos(2 * Math.PI * n / i); };
+
+    $(function () {
+      function show_time() {
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        $('#txt').html(h + ":" + m + ":" + s);
+        $('#sec').attr('x2', x2(s, 60, 100, 50)).attr('y2', y2(s, 60, 70, 50));
+        $('#min').attr('x2', x2(m, 60, 100, 40)).attr('y2', y2(m, 60, 70, 40));
+        $('#hou').attr('x2', x2(h, 12, 100, 30)).attr('y2', y2(h, 12, 70, 30));
+      }
+      setInterval(function () { show_time(); }, 1000);
+      show_time();
+    })
+  </script>
+</head>
+
+<body>
+  <div class="half">
+    <div id="txt">texto</div>
+  </div>
+
+  <svg id="vector" viewBox="0 0 200 200">
+    <circle id="myCircle" cx="100" cy="70" r="50" fill="white" stroke="#db4e36" stroke-width="3" />
+    <line id="hou" x1="100" y1="70" x2="110" y2="80" style="stroke:#db4e36;stroke-width:5" />
+    <line id="min" x1="100" y1="70" x2="80" y2="40" style="stroke:#db4e36;stroke-width:3" />
+    <line id="sec" x1="100" y1="70" x2="115" y2="45" style="stroke:black;stroke-width:1" />
+  </svg>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Gallery</title>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="zepto.min.js"></script>
+  <style>
+    #clock {
+      height: 80%;
+      width: 80%;
+      margin-left: 10%;
+    }
+
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
+      color: #FFFFFF;
+      background-color: #000000;
+    }
+
+    html {
+      height: 100%;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: Helvetica, Arial, sans-serif;
+      color: red;
+    }
+  </style>
+  <script>
+    function animate() {
+      var d = new Date();
+      var h = (d.getHours() * 30) + (d.getMinutes() / 2);
+      var m = d.getMinutes() * 6;
+      var s = d.getSeconds() * 6;
+      $("#hou").attr("transform", "rotate(" + h + " 60 60)");
+      $("#min").attr("transform", "rotate(" + m + " 60 60)");
+      $("#sec").attr("transform", "rotate(" + s + " 60 60)");
+    }
+
+    $(function () {
+      setInterval(animate, 1000);
+      animate();
+    })
+  </script>
+</head>
+
+<body>
+  <h1>CLOCK</h1>
+  <svg id="clock" xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+
+    <circle id='myCircle' cx='60' cy='60' r='50' stroke='white' stroke-width='1' />
+    <line stroke-linecap="round" id="hou" x1='60' y1='60' x2='60' y2='30' style='stroke:white;stroke-width:3' />
+    <line stroke-linecap="round" id="min" x1='60' y1='60' x2='60' y2='20' style='stroke:white;stroke-width:3' />
+    <circle id='sec' cx='60' cy='10' r='2' fill='red' />
+  </svg>
+</body>
+
+</html>
