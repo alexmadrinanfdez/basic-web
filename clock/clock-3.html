@@ -4,53 +4,12 @@
 <head>
   <title>Gallery</title>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles/dark.css" />
   <script type="text/javascript" src="zepto.min.js"></script>
-  <style>
-    #clock {
-      height: 80%;
-      width: 80%;
-      margin-left: 10%;
-    }
-
-    body {
-      height: 100%;
-      width: 100%;
-      margin: 0px;
-      padding: 0px;
-      color: #FFFFFF;
-      background-color: #000000;
-    }
-
-    html {
-      height: 100%;
-      width: 100%;
-    }
-
-    h1 {
-      text-align: center;
-      font-family: Helvetica, Arial, sans-serif;
-      color: red;
-    }
-  </style>
-  <script>
-    function animate() {
-      var d = new Date();
-      var h = (d.getHours() * 30) + (d.getMinutes() / 2);
-      var m = d.getMinutes() * 6;
-      var s = d.getSeconds() * 6;
-      $("#hou").attr("transform", "rotate(" + h + " 60 60)");
-      $("#min").attr("transform", "rotate(" + m + " 60 60)");
-      $("#sec").attr("transform", "rotate(" + s + " 60 60)");
-    }
-
-    $(function () {
-      setInterval(animate, 1000);
-      animate();
-    })
-  </script>
+  <script src="scripts/graphic.js"></script>
 </head>
 
-<body>
+<body onload="init(60, 60); doAnim(60, 60);">
   <h1>CLOCK</h1>
   <svg id="clock" xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
 
