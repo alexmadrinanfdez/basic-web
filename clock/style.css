@@ -1,0 +1,28 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #eee;
+}
+
+header {
+    border: 15px solid #db4e36;
+    color: #fff;
+}
+
+h1 {
+    font-family: sans-serif;
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    color: #db4e36;
+}
+
+main {
+    margin-top: 5%;
+    display: flex;
+}
+
+.clock {
+    height: 100%;
+    width: 100%;
+}

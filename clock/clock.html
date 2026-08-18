@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SVG clocks</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header>
+        <h1 class="time"></h1>
+    </header>
+    <main>
+        <svg class="clock" viewBox="0 0 100 100" role="img">
+            <circle class="frame" cx="50" cy="50" r="25"
+                fill="#fff" stroke="#db4e36" stroke-width="3" />
+            <line class="hour-hand" x1="50" y1="50" x2="50" y2="35"
+                stroke="#db4e36" stroke-width="5" />
+            <line class="minute-hand" x1="50" y1="50" x2="50" y2="30"
+                stroke="#db4e36" stroke-width="3" />
+            <line class="second-hand" x1="50" y1="50" x2="50" y2="25"
+                stroke="#000000" stroke-width="1" />
+        </svg>
+        <svg class="clock watch" viewBox="0 0 100 100" role="img">
+            <g class="background">
+                <rect x="35" y="10" width="30" height="20" />
+                <rect x="35" y="70" width="30" height="20" />
+                <rect x="25" y="35" width="5" height="30" />
+                <rect x="70" y="35" width="5" height="30" />
+                <rect x="30" y="30" width="5" height="5" />
+                <rect x="30" y="65" width="5" height="5" />
+                <rect x="65" y="30" width="5" height="5" />
+                <rect x="65" y="65" width="5" height="5" />
+                <rect x="75" y="45" width="5" height="10" />
+            </g>
+            <line class="hour-hand" x1="50" y1="50" x2="50" y2="35"
+                stroke="#000000" stroke-width="5" />
+            <line class="minute-hand" x1="50" y1="50" x2="50" y2="33"
+                stroke="#000000" stroke-width="5" />
+            <line class="second-hand" x1="50" y1="50" x2="50" y2="31"
+                stroke="#000000" stroke-width="1" />
+            <circle class="frame" cx="50" cy="50" r="1"
+                fill="#fff" stroke="#db4e36" stroke-width="1" />
+        </svg>
+        <svg class="clock" viewBox="0 0 100 100" role="img">
+            <circle class="frame" cx="50" cy="50" r="25"
+                fill="#fff" stroke="#db4e36" stroke-width="1" />
+            <line class="hour-hand" x1="50" y1="50" x2="50" y2="35"
+                stroke="#db4e36" stroke-linecap="round" stroke-width="3" />
+            <line class="minute-hand" x1="50" y1="50" x2="50" y2="30"
+                stroke="#db4e36" stroke-linecap="round" stroke-width="2" />
+            <circle class="second-hand" cx="50" cy="25" r="1"
+                fill="#000" fill-opacity="0.7" stroke="#f00" stroke-width="0.5" />
+        </svg>
+        <script src="main.js"></script>
+    </main>
+</body>
+
+</html>
