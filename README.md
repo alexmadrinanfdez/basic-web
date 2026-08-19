@@ -59,3 +59,10 @@ A custom media player with styled controls and interactive behavior.
 <div align="center">
   <img src="assets/player-preview.png" alt="Custom video player preview" height="250" />
 </div>
+
+### `clock/`
+Different flavors of time display. Animated images are generated using _inline_ Scalable Vector Graphics (SVG).
+
+<div align="center">
+  <img src="assets/clock-preview.png" alt="Clock preview" height="250" />
+</div>
