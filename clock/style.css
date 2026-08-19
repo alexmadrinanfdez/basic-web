@@ -10,7 +10,7 @@ header {
 }
 
 h1 {
-    font-family: sans-serif;
+    font-family: "Roboto Mono", monospace;
     font-size: 3em;
     font-weight: bold;
     text-align: center;

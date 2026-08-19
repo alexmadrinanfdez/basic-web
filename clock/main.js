@@ -4,7 +4,8 @@
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
-    document.querySelector("h1").textContent = `${hours}:${minutes}:${seconds}`;
+    const display = [hours, minutes, seconds].map(unit => unit.toString().padStart(2, "0"))
+    document.querySelector("h1").textContent = display.join(":");
 
     document.querySelectorAll(".clock").forEach(clock => {
         const frame = clock.querySelector(".frame");
